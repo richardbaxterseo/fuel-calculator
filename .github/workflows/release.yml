@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v3
     
@@ -31,13 +33,10 @@ jobs:
       run: zip -r fuel-calculator.zip fuel-calculator/
     
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
+        name: Fuel Calculator ${{ github.ref_name }}
         tag_name: ${{ github.ref }}
-        release_name: Fuel Calculator ${{ github.ref }}
         body: |
           ## Fuel Calculator for Sim Racing
           
@@ -54,15 +53,8 @@ jobs:
           ### What's Changed
           
           See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
+        files: fuel-calculator.zip
         draft: false
         prerelease: false
-    
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./fuel-calculator.zip
-        asset_name: fuel-calculator.zip
-        asset_content_type: application/zip
