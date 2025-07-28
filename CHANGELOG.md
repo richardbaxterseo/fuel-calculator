@@ -5,19 +5,38 @@ All notable changes to the Fuel Calculator for Sim Racing plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0] - 2024-01-15
+## [1.1.0] - 2025-07-28
+
+### Changed
+- Complete CSS redesign to align with FOV Calculator green theme
+- Replaced orange accent colour (#ff4b2b) with green (#4CAF50) throughout
+- Updated all interactive elements to use consistent green colour scheme
+
+### Added
+- CSS custom properties (variables) for better maintainability
+- Improved focus states for better accessibility
+- Enhanced mobile responsive behaviour with better breakpoints
+- Light/dark theme support with proper variable usage
+- Print styles for better output when printing calculations
+
+### Enhanced
+- Tab navigation styling with smoother transitions
+- Input field styling to match FOV Calculator standards
+- Button hover states with transform animations
+- Result display with better visual hierarchy
+- Stint management interface with improved contrast
+
+## [1.0.0] - 2025-07-28
 
 ### Added
 - Initial release of Fuel Calculator for Sim Racing
-- Standard calculator for single-stint races
-- Advanced calculator for multi-stint planning
-- Toggle between time-based and lap-based race input
-- Real-time calculation updates
-- Safety fuel calculation (includes 2 extra laps)
-- Tank capacity limits for realistic planning
-- Dynamic stint management (add/remove stints)
+- Standard calculator with time/lap modes
+- Advanced multi-stint calculator
+- Real-time calculations
 - Mobile responsive design
-- Clean, modern UI with gradient backgrounds
-- WordPress shortcode support `[fuel_calculator]`
-- Proper asset enqueueing (only loads on pages with calculator)
-- Full internationalization support
+- Safety fuel calculations with 2 lap buffer
+- Support for both sprint races and endurance events
+- Toggle between time-based and lap-based calculations
+- Dynamic stint management for endurance races
+- Clear visual feedback for results
+- WordPress shortcode [fuel_calculator]
