@@ -1,0 +1,68 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Create plugin directory
+      run: mkdir -p fuel-calculator
+    
+    - name: Copy plugin files
+      run: |
+        # Copy all files except development and git files
+        rsync -av \
+          --exclude='.git' \
+          --exclude='.github' \
+          --exclude='.gitignore' \
+          --exclude='README.md' \
+          --exclude='DEVELOPER-GUIDE.md' \
+          --exclude='ORIGINAL-EXTRACTION-NOTES.md' \
+          --exclude='*.zip' \
+          ./ fuel-calculator/
+    
+    - name: Create ZIP file
+      run: zip -r fuel-calculator.zip fuel-calculator/
+    
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Fuel Calculator ${{ github.ref }}
+        body: |
+          ## Fuel Calculator for Sim Racing
+          
+          Calculate optimal fuel loads for sim racing with support for both time and lap-based races, including multi-stint planning.
+          
+          ### Installation
+          
+          1. Download `fuel-calculator.zip` from the assets below
+          2. Go to WordPress Admin → Plugins → Add New → Upload Plugin
+          3. Select the downloaded ZIP file
+          4. Activate the plugin
+          5. Use shortcode `[fuel_calculator]` on any page
+          
+          ### What's Changed
+          
+          See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
+        draft: false
+        prerelease: false
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./fuel-calculator.zip
+        asset_name: fuel-calculator.zip
+        asset_content_type: application/zip
