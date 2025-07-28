@@ -35,3 +35,6 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.temp
+
+# ZIP files (should not be in repository)
+*.zip
