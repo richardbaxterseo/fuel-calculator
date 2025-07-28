@@ -1,8 +1,50 @@
 /**
  * Fuel Calculator for Sim Racing - Styles
- * Version: 1.0.0
+ * Version: 1.1.0
  * Copyright (c) 2024. All rights reserved.
+ * 
+ * Updated: Aligned with FOV Calculator design system
+ * Theme: Green accent (#4CAF50) replacing orange (#ff4b2b)
  */
+
+/* CSS Custom Properties for Design System */
+:root {
+    /* Primary Colours */
+    --fuel-primary: #4CAF50;
+    --fuel-primary-hover: #45a049;
+    --fuel-primary-dark: #388E3C;
+    --fuel-primary-light: rgba(76, 175, 80, 0.1);
+    --fuel-primary-lighter: rgba(76, 175, 80, 0.02);
+    
+    /* Background Colours */
+    --fuel-bg-primary: #1a1a1a;
+    --fuel-bg-secondary: #2d2d2d;
+    --fuel-bg-overlay: rgba(0, 0, 0, 0.3);
+    --fuel-bg-subtle: rgba(0, 0, 0, 0.2);
+    
+    /* Text Colours */
+    --fuel-text-primary: #ffffff;
+    --fuel-text-secondary: rgba(255, 255, 255, 0.7);
+    --fuel-text-muted: rgba(255, 255, 255, 0.5);
+    
+    /* Border & Input Colours */
+    --fuel-border-light: rgba(255, 255, 255, 0.2);
+    --fuel-border-lighter: rgba(255, 255, 255, 0.1);
+    --fuel-input-bg: rgba(255, 255, 255, 0.1);
+    --fuel-input-bg-hover: rgba(255, 255, 255, 0.15);
+    
+    /* Status Colours */
+    --fuel-success: #4CAF50;
+    --fuel-warning: #ff9800;
+    --fuel-error: #f44336;
+    
+    /* Layout */
+    --fuel-border-radius: 16px;
+    --fuel-border-radius-sm: 8px;
+    --fuel-border-radius-xs: 6px;
+    --fuel-input-height: 45px;
+    --fuel-transition: all 0.3s ease;
+}
 
 /* Main Container */
 #fuel-calculator-wrapper {
@@ -10,8 +52,8 @@
     width: 100%;
     margin: 0 auto;
     padding: 0;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border-radius: 16px;
+    background: linear-gradient(135deg, var(--fuel-bg-primary) 0%, var(--fuel-bg-secondary) 100%);
+    border-radius: var(--fuel-border-radius);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     box-sizing: border-box;
     overflow: hidden;
@@ -19,7 +61,7 @@
     position: relative;
 }
 
-/* Pattern overlay */
+/* Pattern overlay - Updated to green */
 #fuel-calculator-wrapper::before {
     content: '';
     position: absolute;
@@ -28,15 +70,16 @@
     right: 0;
     bottom: 0;
     background-image: 
-        repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,75,43,.02) 35px, rgba(255,75,43,.02) 70px);
+        repeating-linear-gradient(45deg, transparent, transparent 35px, 
+        var(--fuel-primary-lighter) 35px, var(--fuel-primary-lighter) 70px);
     pointer-events: none;
     z-index: 1;
 }
 
-/* Tab Navigation */
+/* Tab Navigation - Styled to match FOV button approach */
 .calculator-tabs {
     display: flex;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--fuel-bg-overlay);
     padding: 0;
     position: relative;
     z-index: 2;
@@ -47,22 +90,22 @@
     padding: 20px;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--fuel-text-secondary);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--fuel-transition);
     position: relative;
 }
 
 .calculator-tabs .tab:hover {
-    color: #ffffff;
+    color: var(--fuel-text-primary);
     background: rgba(255, 255, 255, 0.05);
 }
 
 .calculator-tabs .tab.active {
-    color: #ff4b2b;
-    background: rgba(255, 75, 43, 0.1);
+    color: var(--fuel-text-primary);
+    background: var(--fuel-primary);
 }
 
 .calculator-tabs .tab.active::after {
@@ -72,7 +115,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: #ff4b2b;
+    background: var(--fuel-primary-hover);
 }
 
 /* Tab Content */
@@ -85,14 +128,15 @@
 .tab-content.active {
     display: block;
 }
+
 /* Calculator Card */
 .calculator-card {
     padding: 40px;
-    color: #ffffff;
+    color: var(--fuel-text-primary);
 }
 
 .calculator-card h2 {
-    color: #ffffff;
+    color: var(--fuel-text-primary);
     margin: 0 0 30px 0;
     font-size: 2rem;
     font-weight: 700;
@@ -100,12 +144,11 @@
 }
 
 .calculator-card h3 {
-    color: #ff4b2b;
+    color: var(--fuel-primary);
     margin: 30px 0 20px 0;
     font-size: 1.3rem;
     font-weight: 600;
 }
-
 /* Input Groups */
 .input-group {
     margin-bottom: 25px;
@@ -132,24 +175,31 @@
     position: relative;
 }
 
+/* Updated Input Styling to Match FOV */
 .input-wrapper input[type="number"] {
     width: 100%;
-    padding: 15px;
-    padding-right: 50px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 18px;
+    height: var(--fuel-input-height);
+    padding: 0 50px 0 15px;
+    background: var(--fuel-input-bg);
+    border: 1px solid var(--fuel-border-light);
+    border-radius: var(--fuel-border-radius-sm);
+    color: var(--fuel-text-primary);
+    font-size: 16px;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: var(--fuel-transition);
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.input-wrapper input[type="number"]:hover {
+    background: var(--fuel-input-bg-hover);
 }
 
 .input-wrapper input[type="number"]:focus {
     outline: none;
-    border-color: #ff4b2b;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.2);
+    border-color: var(--fuel-primary);
+    background: var(--fuel-input-bg-hover);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
 
 .input-wrapper input[type="number"]:disabled {
@@ -157,18 +207,25 @@
     cursor: not-allowed;
 }
 
+/* Remove spin buttons */
+.input-wrapper input[type="number"]::-webkit-inner-spin-button,
+.input-wrapper input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .unit {
     position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--fuel-text-muted);
     font-size: 14px;
     font-weight: 500;
     pointer-events: none;
 }
 
-/* Toggle Switch */
+/* Toggle Switch - Updated to green */
 .switch-container {
     display: flex;
     align-items: center;
@@ -201,7 +258,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--fuel-border-light);
     transition: .4s;
     border-radius: 30px;
 }
@@ -219,19 +276,19 @@
 }
 
 input:checked + .slider {
-    background-color: #ff4b2b;
+    background-color: var(--fuel-primary);
 }
 
 input:checked + .slider:before {
     transform: translateX(30px);
 }
-/* Results Section */
+/* Results Section - Aligned with FOV style */
 .results-section {
     margin-top: 40px;
     padding: 30px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--fuel-border-lighter);
 }
 
 .results-section h3 {
@@ -242,37 +299,46 @@ input:checked + .slider:before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--fuel-border-radius-sm);
+    transition: var(--fuel-transition);
+}
+
+.result-item:hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .result-item:last-child {
-    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .result-label {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 16px;
+    color: var(--fuel-text-secondary);
+    font-size: 14px;
 }
 
 .result-value {
-    color: #ffffff;
+    color: var(--fuel-primary);
     font-size: 20px;
+    font-weight: 600;
+}
+
+/* Safety fuel emphasis - keeping this prominent */
+.safe-fuel .result-value {
+    color: var(--fuel-primary);
+    font-size: 24px;
     font-weight: 700;
 }
 
-.safe-fuel .result-value {
-    color: #ff4b2b;
-    font-size: 24px;
-}
-
-/* Stint Management */
+/* Stint Management - Updated colors */
 .stint-container {
     margin-bottom: 20px;
     padding: 20px;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--fuel-border-lighter);
 }
 
 .stint-header {
@@ -284,7 +350,7 @@ input:checked + .slider:before {
 
 .stint-header h4 {
     margin: 0;
-    color: #ff4b2b;
+    color: var(--fuel-primary);
     font-size: 1.1rem;
 }
 
@@ -297,31 +363,31 @@ input:checked + .slider:before {
 .stint-info {
     margin-top: 15px;
     padding: 10px;
-    background: rgba(255, 75, 43, 0.1);
-    border-radius: 6px;
+    background: var(--fuel-primary-light);
+    border-radius: var(--fuel-border-radius-xs);
     font-size: 14px;
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* Buttons */
+/* Buttons - Updated to green theme */
 .add-stint-btn,
 .remove-stint-btn {
     padding: 12px 24px;
-    background: #ff4b2b;
+    background: var(--fuel-primary);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--fuel-border-radius-sm);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--fuel-transition);
     margin-top: 20px;
 }
 
 .add-stint-btn:hover {
-    background: #e63e2a;
+    background: var(--fuel-primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 75, 43, 0.3);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
 }
 
 .remove-stint-btn {
@@ -332,12 +398,11 @@ input:checked + .slider:before {
 }
 
 .remove-stint-btn:hover {
-    background: rgba(255, 75, 43, 0.2);
+    background: rgba(76, 175, 80, 0.2);
     transform: none;
     box-shadow: none;
 }
-
-/* Responsive Design */
+/* Responsive Design - Matching FOV approach */
 @media (max-width: 768px) {
     #fuel-calculator-wrapper {
         border-radius: 0;
@@ -375,12 +440,38 @@ input:checked + .slider:before {
     }
 }
 
-/* Dark Theme Override */
+@media (max-width: 480px) {
+    #fuel-calculator-wrapper {
+        margin: 0;
+    }
+    
+    .calculator-card {
+        padding: 15px;
+    }
+    
+    .calculator-card h2 {
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+    
+    .calculator-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .results-section {
+        padding: 20px;
+    }
+    
+    .add-stint-btn {
+        width: 100%;
+    }
+}
+
+/* Theme Overrides - Updated for consistency */
 .fuel-theme-dark #fuel-calculator-wrapper {
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
-/* Light Theme Override */
 .fuel-theme-light #fuel-calculator-wrapper {
     background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
 }
@@ -402,7 +493,8 @@ input:checked + .slider:before {
 }
 
 .fuel-theme-light .calculator-tabs .tab.active {
-    color: #ff4b2b;
+    color: white;
+    background: var(--fuel-primary);
 }
 
 .fuel-theme-light .result-label {
@@ -410,7 +502,7 @@ input:checked + .slider:before {
 }
 
 .fuel-theme-light .result-value {
-    color: #333333;
+    color: var(--fuel-primary-dark);
 }
 
 /* WordPress Compatibility */
@@ -424,14 +516,52 @@ input:checked + .slider:before {
     font-family: inherit;
 }
 
-/* Clear any theme conflicts */
-#fuel-calculator-wrapper input[type="number"] {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
+/* Focus States - Accessibility */
+#fuel-calculator-wrapper *:focus-visible {
+    outline: 3px solid var(--fuel-primary);
+    outline-offset: 2px;
 }
 
-#fuel-calculator-wrapper input[type="number"]::-webkit-inner-spin-button,
-#fuel-calculator-wrapper input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+/* Smooth animations */
+#fuel-calculator-wrapper {
+    scroll-behavior: smooth;
+}
+
+/* Loading state */
+.fuel-loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--fuel-text-secondary);
+}
+
+/* Error state */
+.fuel-error {
+    text-align: center;
+    color: var(--fuel-error);
+    font-size: 1.1rem;
+    padding: 20px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    border-radius: var(--fuel-border-radius-sm);
+    margin: 20px;
+}
+
+/* Print styles */
+@media print {
+    #fuel-calculator-wrapper {
+        background: white;
+        color: black;
+        box-shadow: none;
+    }
+    
+    .calculator-tabs,
+    .add-stint-btn,
+    .remove-stint-btn {
+        display: none;
+    }
+    
+    .result-value {
+        color: black;
+        font-weight: bold;
+    }
 }
