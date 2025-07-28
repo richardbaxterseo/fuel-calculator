@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Calculator Test Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fuel Calculator Test Suite</h1>
+    
+    <div class="test-section">
+        <h2>📍 File Location</h2>
+        <p><strong>Directory:</strong> <code>C:\dev\wp\fuel-calculator\</code></p>
+        <p><strong>Main File:</strong> <code>fuel-calculator.html</code></p>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Automated Tests</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🖥️ Live Calculator Preview</h2>
+        <p>The calculator should appear below. If it doesn't load, check that the file path is correct.</p>
+        <iframe src="fuel-calculator.html" id="calculator-frame"></iframe>
+    </div>
+
+    <div class="test-section">
+        <h2>✅ Manual Test Scenarios</h2>
+        <h3>Standard Calculator</h3>
+        <ol>
+            <li>
+                <strong>90-minute race test:</strong>
+                <ul>
+                    <li>Race Length: 1 hour, 30 minutes</li>
+                    <li>Lap Time: 1 minute, 45 seconds (1:45)</li>
+                    <li>Fuel Per Lap: 2.8 litres</li>
+                    <li>Expected Result: ~51 laps, ~142.8L fuel</li>
+                </ul>
+            </li>
+            <li>
+                <strong>50-lap sprint test:</strong>
+                <ul>
+                    <li>Toggle "Use Laps Instead of Time"</li>
+                    <li>Race Laps: 50</li>
+                    <li>Fuel Per Lap: 3.2 litres</li>
+                    <li>Expected Result: 160L fuel, 166.4L safe fuel</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Advanced Calculator</h3>
+        <ol>
+            <li>
+                <strong>Multi-stint endurance test:</strong>
+                <ul>
+                    <li>Tank Capacity: 100 litres</li>
+                    <li>Fuel Per Lap: 2.5 litres</li>
+                    <li>Stint 1: 35 laps (87.5L)</li>
+                    <li>Stint 2: 35 laps (87.5L)</li>
+                    <li>Stint 3: 30 laps (75L)</li>
+                    <li>Expected: Total 100 laps, 250L fuel</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <script>
+        function runAllTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<h3>Test Results:</h3>';
+            
+            // Test 1: Check if iframe loaded
+            const iframe = document.getElementById('calculator-frame');
+            const test1 = checkIframeLoaded(iframe);
+            displayResult('Calculator HTML loads correctly', test1);
+            
+            // Test 2: Check if we can access the calculator's window
+            try {
+                const calcWindow = iframe.contentWindow;
+                const test2 = calcWindow && calcWindow.document;
+                displayResult('Can access calculator document', test2);
+                
+                if (test2) {
+                    // Test 3: Check for essential functions
+                    const test3 = typeof calcWindow.calculateStandard === 'function';
+                    displayResult('calculateStandard function exists', test3);
+                    
+                    const test4 = typeof calcWindow.calculateAdvanced === 'function';
+                    displayResult('calculateAdvanced function exists', test4);
+                    
+                    const test5 = typeof calcWindow.addStint === 'function';
+                    displayResult('addStint function exists', test5);
+                    
+                    // Test 4: Check for essential elements
+                    const test6 = calcWindow.document.getElementById('raceHours') !== null;
+                    displayResult('Race hours input exists', test6);
+                    
+                    const test7 = calcWindow.document.getElementById('fuelPerLap') !== null;
+                    displayResult('Fuel per lap input exists', test7);
+                    
+                    // Test 5: Test a calculation
+                    const test8 = testCalculation(calcWindow);
+                    displayResult('Basic calculation works correctly', test8);
+                }
+            } catch (e) {
+                displayResult('Error accessing calculator functions', false);
+                console.error(e);
+            }
+        }
+        
+        function checkIframeLoaded(iframe) {
+            try {
+                return iframe.contentDocument && iframe.contentDocument.body !== null;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        function testCalculation(calcWindow) {
+            try {
+                // Set test values
+                calcWindow.document.getElementById('raceHours').value = 1;
+                calcWindow.document.getElementById('raceMinutes').value = 0;
+                calcWindow.document.getElementById('lapMinutes').value = 2;
+                calcWindow.document.getElementById('lapSeconds').value = 0;
+                calcWindow.document.getElementById('fuelPerLap').value = 3;
+                
+                // Trigger calculation
+                calcWindow.calculateStandard();
+                
+                // Check result
+                const totalLaps = calcWindow.document.getElementById('totalLaps').value;
+                return parseInt(totalLaps) === 30; // 60 minutes / 2 minutes per lap = 30 laps
+            } catch (e) {
+                console.error('Calculation test error:', e);
+                return false;
+            }
+        }
+        
+        function displayResult(testName, passed) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            resultDiv.innerHTML = `${passed ? '✅' : '❌'} ${testName}`;
+            resultsDiv.appendChild(resultDiv);
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        // Run tests on load
+        window.onload = function() {
+            setTimeout(runAllTests, 1000); // Wait for iframe to fully load
+        };
+    </script>
+</body>
+</html>
