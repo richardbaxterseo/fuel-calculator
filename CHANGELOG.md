@@ -5,6 +5,18 @@ All notable changes to the Fuel Calculator for Sim Racing plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-07-28
+
+### Fixed
+- Critical build issue where old v1.0.0 zip file was included in releases
+- WordPress installation showing multiple plugin versions
+- Nested directory structure in release ZIP files
+- Added *.zip to .gitignore to prevent future issues
+
+### Technical
+- Removed accidentally committed fuel-calculator.zip from repository
+- This fixes the "directory already exists" error during plugin installation
+
 ## [1.2.0] - 2025-07-28
 
 ### Changed

@@ -3,7 +3,7 @@
  * Plugin Name: Fuel Calculator for Sim Racing
  * Plugin URI: https://simracingcockpit.gg/fuel-calculator
  * Description: Calculate optimal fuel loads for sim racing. Supports both time and lap-based races with multi-stint planning.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Richard Baxter
  * Author URI: https://simracingcockpit.gg
  * License: GPL v2 or later
@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('FUEL_CALC_VERSION', '1.2.0');
+define('FUEL_CALC_VERSION', '1.2.1');
 define('FUEL_CALC_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('FUEL_CALC_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('FUEL_CALC_PLUGIN_FILE', __FILE__);
