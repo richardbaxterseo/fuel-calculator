@@ -5,6 +5,24 @@ All notable changes to the Fuel Calculator for Sim Racing plugin will be documen
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-07-28
+
+### Changed
+- Calculator now uses full width of content area (removed 800px constraint)
+- Input rows now use CSS Grid with auto-fit for better responsiveness
+- Stint inputs adapt from 2 columns to more on wider screens
+- Increased desktop padding to 60px for better proportions
+
+### Added
+- Optional .fuel-calculator-contained class for 1200px max-width centered layout
+- Results section can display in multiple columns on wide screens
+- Better responsive grid layouts throughout
+
+### Enhanced
+- Better space utilisation on all screen sizes
+- Improved visual balance for full-width layouts
+- More flexible grid systems for inputs
+
 ## [1.1.0] - 2025-07-28
 
 ### Changed

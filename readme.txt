@@ -4,7 +4,7 @@ Tags: sim racing, fuel calculator, racing, calculator, fuel management
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -80,6 +80,13 @@ The calculator uses precise mathematical formulas and always rounds up to ensure
 5. Results display with safety fuel calculation
 
 == Changelog ==
+
+= 1.2.0 =
+* Enhancement: Calculator now uses full width of content area
+* Enhancement: Improved grid layouts with auto-fit for better responsiveness
+* Enhancement: Increased padding on larger screens for better proportions
+* Feature: Added optional .fuel-calculator-contained class for max-width layouts
+* Enhancement: Better space utilisation for stint inputs on wide screens
 
 = 1.1.0 =
 * Style: Complete CSS redesign to align with FOV Calculator green theme
